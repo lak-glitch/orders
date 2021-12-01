@@ -90,11 +90,11 @@ public class OrdersManagement {
 
         float promotion = 0;
         for (OrdersInformation o:ListProject.ordersList) {
-            if (o.getPriceEachProduct() * o.getProductNumber() > 60000) {
-                promotion = o.getProductNumber() * o.getPriceEachProduct() * 20/100;
+            if (o.getPriceEachProduct() * o.getProductNumber() < 60000) {
+                promotion = o.getProductNumber() * o.getPriceEachProduct();
             }
-            else if (o.getPriceEachProduct() * o.getProductNumber() < 150000 ) {
-                promotion = o.getProductNumber() * o.getPriceEachProduct() * 25/100;
+            else if (o.getPriceEachProduct() * o.getProductNumber() < 100000 ) {
+                promotion = o.getProductNumber() * o.getPriceEachProduct() * 20/100;
             }
             else {
                 promotion = o.getProductNumber() * o.getPriceEachProduct() * 30/100;
