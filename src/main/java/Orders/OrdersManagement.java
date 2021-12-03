@@ -27,7 +27,7 @@ public class OrdersManagement {
                 new_date);
         ListProject.ordersList.add(o);
         sqlOrders.Connection1();
-        sqlOrders.usingInsert(new_cusName, new_phoneNum, new_proName, new_numberPro, new_priceEachProduct, new_date);
+        sqlOrders.usingInsert(new_cusName, new_phoneNum, new_proName, new_numberPro, new_proCost, new_date);
     }
 
     /**
