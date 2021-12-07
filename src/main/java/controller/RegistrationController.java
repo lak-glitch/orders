@@ -39,32 +39,28 @@ public class RegistrationController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         changeScene = new ChangeScene();
         connection = new MySQLConnection();
-        signup();
     }
 
     //     get username, password and email from new user
-    public void signup() {
-        registerButton.setOnAction(event -> {
-            username = usernameTextField.getText();
-            password = passwordField.getText();
-            email = emailTextField.getText();
-            Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
-            if (username.equals("") || password.equals("") || email.equals("") || !matcher.find() || !password.equals(repeatPasswordField.getText())) {
-                System.out.println("Invalid");
-            } else {
-                try {
-                    changeScene.changeScene(event, "/gui/LoginController.fxml");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+    public void signup(ActionEvent event) {
+
+        username = usernameTextField.getText();
+        password = passwordField.getText();
+        email = emailTextField.getText();
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+        if(!matcher.find() || username == null || password == null) {
+            System.out.println("Invalid Email");
+        } else {
+            try {
                 registrationForm = new RegistrationForm(username, password, email);
-                try {
-                    connection.signupUser(registrationForm);
-                } catch (SQLException e) {
-                    e.printStackTrace();
+                connection.signupUser(registrationForm);
+                if (MySQLConnection.isSignup) {
+                    changeScene.changeScene(event, "/gui/LoginController.fxml");
                 }
+            } catch (IOException | SQLException e) {
+                e.printStackTrace();
             }
-        });
+        }
     }
 
     public void changeToSignin(ActionEvent event) {

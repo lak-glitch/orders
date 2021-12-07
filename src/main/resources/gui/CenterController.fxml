@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CenterController">
+   <children>
+      <AnchorPane prefHeight="800.0" prefWidth="49.0" style="-fx-background-color: #dee2e6;">
+         <children>
+            <Button fx:id="dashboardButton" layoutX="2.0" layoutY="208.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" styleClass="menu-button" stylesheets="@../css/style.css">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../icons/dashboard_layout_24px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip fx:id="dashboardTooltip" text="DashBoard" />
+               </tooltip>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/redux_24px.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="newOrderButton" layoutX="2.0" layoutY="278.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" styleClass="menu-button" stylesheets="@../css/style.css">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/create_document_24px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip fx:id="newOrderTooltip" text="New order" />
+               </tooltip>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="statisticsButton" layoutX="1.0" layoutY="348.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" styleClass="menu-button" stylesheets="@../css/style.css">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/line_chart_24px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip fx:id="statisticsTooltip" text="Statistics" />
+               </tooltip>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="mainAchorpane" layoutX="50.0" prefHeight="800.0" prefWidth="1231.0" />
+   </children>
+</AnchorPane>

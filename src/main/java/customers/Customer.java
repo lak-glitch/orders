@@ -1,15 +1,16 @@
 package customers;
 
+
 public class Customer {
     private String customerName;
-    private String customerPhoneNumber;
+    private String customerPhoneNum;
 
     public Customer() {
     }
 
-    public Customer(String customerName, String customerPhoneNumber) {
+    public Customer(String customerName, String customerPhoneNum) {
         this.customerName = customerName;
-        this.customerPhoneNumber = customerPhoneNumber;
+        this.customerPhoneNum = customerPhoneNum;
     }
 
     public String getCustomerName() {
@@ -20,11 +21,11 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public String getCustomerPhoneNumber() {
-        return customerPhoneNumber;
+    public String getCustomerPhoneNum() {
+        return customerPhoneNum;
     }
 
-    public void setCustomerPhoneNumber(String customerPhoneNumber) {
-        this.customerPhoneNumber = customerPhoneNumber;
+    public void setCustomerPhoneNum(String customerPhoneNum) {
+        this.customerPhoneNum = customerPhoneNum;
     }
 }

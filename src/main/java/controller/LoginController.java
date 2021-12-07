@@ -20,7 +20,7 @@ public class LoginController implements Initializable {
     @FXML
     PasswordField passwordField;
     @FXML
-    Button toSignupButton;
+    Button toSignupButton, loginButton;
     ChangeScene changeScene;
     MySQLConnection connection;
 
@@ -30,8 +30,15 @@ public class LoginController implements Initializable {
         connection = new MySQLConnection();
     }
 
-    public void login() throws SQLException {
+    public void login(ActionEvent event) throws SQLException {
         connection.loginUser(usernameTextField.getText(), passwordField.getText());
+        if (MySQLConnection.isLogin) {
+            try {
+                changeScene.changeScene(event, "/gui/CenterController.fxml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void changeToSignup(ActionEvent event) {
@@ -41,4 +48,5 @@ public class LoginController implements Initializable {
             e.printStackTrace();
         }
     }
+
 }

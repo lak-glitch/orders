@@ -1,6 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+* {
+    -fx-font-family: 'Roboto', sans-serif;
+    -fx-font-weight: bold;
+}
+
 .registration-field {
 
 }
 
 .registration-button {
+}
+
+.menu-button {
+    -fx-background-color: transparent;
+}
+
+.menu-button:hover {
+    -fx-background-color: #adb5bd;
+    -fx-border-style: hidden hidden hidden solid;
+    -fx-border-color: #212529;
+    -fx-border-width: 3px;
+
+}
+
+
+.taskbar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6c757d;
+    -fx-font-size: 15;
+}
+
+.taskbar-button:hover {
+    -fx-background-color: #ced4da;
+    -fx-text-fill: #184e77;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: #184e77;
+    -fx-font-weight: bold;
+}
+
+.taskbar {
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: #dee2e6;
+}
+
+.search-field {
+    -fx-background-color: #edf6f9;
+    -fx-background-radius: 20;
+}
+
+.order-information {
+    -fx-text-fill: #495057;
+    -fx-background-color: #ced4da;
+}
+
+.order-information:hover {
+    -fx-background-radius: 20;
+}
+
+.taskbar-style {
+    -fx-background-color: #ced4da;
+    -fx-text-fill: #184e77;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: #184e77;
+    -fx-font-weight: bold;
+}
+
+.list-view {
+    -fx-background-color: #fff;
+}
+
+.list-view .list-cell:even {
+    -fx-background-color: #fff;
+}
+
+.list-view .list-cell:odd {
+    -fx-background-color: #fff;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color:#e9ecef;
+    -fx-text-fill: #023e8a;
+    -fx-cursor: hand;
+
+}
+
+.table-view .list-cell:odd {
+    -fx-background-color: #fff;
+}
+
+.table-view .list-cell:even {
+    -fx-background-color: #fff;
 }
