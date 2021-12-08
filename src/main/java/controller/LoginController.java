@@ -23,6 +23,7 @@ public class LoginController implements Initializable {
     Button toSignupButton, loginButton;
     ChangeScene changeScene;
     MySQLConnection connection;
+    public static String username;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -30,10 +31,12 @@ public class LoginController implements Initializable {
         connection = new MySQLConnection();
     }
 
+
     public void login(ActionEvent event) throws SQLException {
         connection.loginUser(usernameTextField.getText(), passwordField.getText());
         if (MySQLConnection.isLogin) {
             try {
+                username = usernameTextField.getText();
                 changeScene.changeScene(event, "/gui/CenterController.fxml");
             } catch (IOException e) {
                 e.printStackTrace();

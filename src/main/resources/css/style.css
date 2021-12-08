@@ -92,3 +92,8 @@
 .table-view .list-cell:even {
     -fx-background-color: #fff;
 }
+
+.user-pane {
+    -fx-background-radius: 20;
+}
+

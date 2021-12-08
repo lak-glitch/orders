@@ -84,13 +84,15 @@
             </Pane>
             <TableView fx:id="orderInformationView" editable="true" layoutY="95.0" prefHeight="390.0" prefWidth="1170.0">
               <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="200.0" resizable="false" text="Name" />
+                  <TableColumn fx:id="orderNumberColumn" editable="false" prefWidth="95.19997864961624" text="Order Number" />
+                <TableColumn fx:id="nameColumn" prefWidth="180.00001525878906" resizable="false" text="Name" />
                 <TableColumn fx:id="phoneColumn" prefWidth="100.0" resizable="false" sortable="false" text="Phone" />
                   <TableColumn fx:id="productNameColumn" prefWidth="150.0" resizable="false" sortable="false" text="Product" />
                   <TableColumn fx:id="quantityColumn" prefWidth="100.0" resizable="false" sortable="false" text="Quantity" />
-                  <TableColumn fx:id="priceEachProductColumn" prefWidth="100.0" resizable="false" text="Price Each" />
                   <TableColumn fx:id="orderDateColumn" prefWidth="150.0" resizable="false" text="Order Date" />
+                  <TableColumn fx:id="shippingDateColumn" prefWidth="100.0" resizable="false" text="Shipping Date" />
                   <TableColumn fx:id="totalColumn" prefWidth="155.199951171875" text="Total" />
+                  <TableColumn fx:id="statusColumn" prefWidth="106.39990234375" sortable="false" text="Status" />
               </columns>
             </TableView>
             <Button fx:id="addButton" layoutX="789.0" layoutY="518.0" mnemonicParsing="false" text="Button" />

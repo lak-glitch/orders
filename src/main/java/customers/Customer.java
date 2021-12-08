@@ -28,4 +28,9 @@ public class Customer {
     public void setCustomerPhoneNum(String customerPhoneNum) {
         this.customerPhoneNum = customerPhoneNum;
     }
+
+    public String getLastName() {
+        String[] splitName = this.customerName.split("\\s");
+        return splitName[splitName.length-1];
+    }
 }

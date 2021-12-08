@@ -1,7 +1,5 @@
 package controller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,13 +18,42 @@ public class CenterController implements Initializable {
     @FXML
     AnchorPane mainAchorpane;
     @FXML
-    Button dashboardButton, newOrderButton, statisticsButton;
+    Button dashboardButton, newOrderButton, statisticsButton, userButton;
+    boolean isClickedDashboard = false;
+    boolean isClickedAddPage = false;
+    boolean isClickedUser = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        dashboardButton.setOnAction(event -> initSelectedScene("/gui/DashboardController.fxml"));
-        newOrderButton.setOnAction(event -> initSelectedScene("/gui/AddOrderController.fxml"));
+        dashboardButton.setOnAction(event -> {
+            if (!isClickedDashboard) {
+                initSelectedScene("/gui/DashboardController.fxml");
+                // set not reload to the page after re-click
+                isClickedDashboard = true;
+                isClickedAddPage = false;
+                isClickedUser = false;
+            }
+        });
+        newOrderButton.setOnAction(event -> {
+            if (!isClickedAddPage) {
+                initSelectedScene("/gui/AddOrderController.fxml");
+                // set not reload to the page after re-click
+                isClickedDashboard = false;
+                isClickedAddPage = true;
+                isClickedUser = false;
+            }
+        });
+        userButton.setOnAction(event -> {
+            if (!isClickedUser) {
+                initSelectedScene("/gui/UserController.fxml");
+                // set not reload to the page after re-click
+                isClickedDashboard = false;
+                isClickedAddPage = false;
+                isClickedUser = true;
+            }
+        });
     }
+
 
     public void initSelectedScene(String path) {
         try {

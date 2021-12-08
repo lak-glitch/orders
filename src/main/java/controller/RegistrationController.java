@@ -22,7 +22,9 @@ public class RegistrationController implements Initializable {
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     static RegistrationForm registrationForm;
     @FXML
-    TextField usernameTextField, emailTextField;
+    TextField usernameTextField;
+    @FXML
+    public TextField emailTextField;
     @FXML
     PasswordField passwordField, repeatPasswordField;
     @FXML
@@ -35,6 +37,8 @@ public class RegistrationController implements Initializable {
     MySQLConnection connection;
     ChangeScene changeScene;
 
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         changeScene = new ChangeScene();
@@ -43,7 +47,6 @@ public class RegistrationController implements Initializable {
 
     //     get username, password and email from new user
     public void signup(ActionEvent event) {
-
         username = usernameTextField.getText();
         password = passwordField.getText();
         email = emailTextField.getText();
@@ -62,7 +65,9 @@ public class RegistrationController implements Initializable {
             }
         }
     }
-
+    public String getUsername() {
+        return usernameTextField.getText();
+    }
     public void changeToSignin(ActionEvent event) {
         try {
             changeScene.changeScene(event, "/gui/LoginController.fxml");

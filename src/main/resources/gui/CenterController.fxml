@@ -61,6 +61,15 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <Button fx:id="userButton" layoutX="1.0" layoutY="649.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" styleClass="menu-button" stylesheets="@../css/style.css">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/user_24px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="mainAchorpane" layoutX="50.0" prefHeight="800.0" prefWidth="1231.0" />

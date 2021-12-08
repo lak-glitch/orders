@@ -56,7 +56,7 @@
       <TextField fx:id="quantityTextField" layoutX="311.0" layoutY="455.0" promptText="Quantity" />
       <TextField fx:id="productCostTextField" layoutX="543.0" layoutY="374.0" promptText="Product Cost" />
       <TextField fx:id="dateTextField" layoutX="544.0" layoutY="455.0" promptText="Date" />
-      <Button fx:id="addButton" layoutX="111.0" layoutY="666.0" mnemonicParsing="false" onAction="#setAddButton" text="Add" />
+      <Button fx:id="addButton" layoutX="768.0" layoutY="374.0" mnemonicParsing="false" onAction="#setAddButton" text="Add" />
       <DatePicker fx:id="datePicker" layoutX="61.0" layoutY="541.0" />
       <ChoiceBox fx:id="statusList" layoutX="310.0" layoutY="541.0" prefWidth="150.0" />
    </children>

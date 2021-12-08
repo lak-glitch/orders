@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1231.0" style="-fx-background-color: #caf0f8;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserController">
+   <children>
+      <AnchorPane fx:id="userAnchorPane" layoutY="454.0" prefHeight="342.0" prefWidth="1231.0">
+         <children>
+            <Pane layoutX="319.0" layoutY="30.0" prefHeight="282.0" prefWidth="593.0" style="-fx-background-color: #fff;" styleClass="user-pane" stylesheets="@../css/style.css">
+               <children>
+                  <ImageView fitHeight="29.0" fitWidth="29.0" layoutX="42.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/name_24px.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="phoneTextField" editable="false" layoutX="87.0" layoutY="141.0" promptText="Phone" />
+                  <ImageView fitHeight="29.0" fitWidth="29.0" layoutX="42.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/phone_24px.png" />
+                     </image>
+                  </ImageView>
+                  <DatePicker fx:id="birthdayPicker" editable="false" layoutX="357.0" layoutY="70.0" prefHeight="25.0" prefWidth="159.0" promptText="Birthday" />
+                  <ImageView fitHeight="29.0" fitWidth="29.0" layoutX="311.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/birthday_24px.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="nameTextField" editable="false" layoutX="87.0" layoutY="70.0" promptText="Name" />
+                  <Button fx:id="updateButton" layoutX="231.0" layoutY="208.0" mnemonicParsing="false" onAction="#setUpdateButton" prefHeight="38.0" prefWidth="131.0" text="Update Information" />
+                  <TextField fx:id="emailTextField" editable="false" layoutX="357.0" layoutY="141.0" prefHeight="25.0" prefWidth="159.0" promptText="Email" />
+                  <ImageView fitHeight="29.0" fitWidth="29.0" layoutX="311.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/mail_24px.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <Pane prefHeight="455.0" prefWidth="1231.0">
+         <children>
+            <ImageView fitHeight="470.0" fitWidth="1231.0" layoutY="-14.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../../../../../../PythonCourse/Wallpapers/png%20wallpapers/AppBreweryWallpaper%201.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
