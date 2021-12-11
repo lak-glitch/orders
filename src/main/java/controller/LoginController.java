@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
+    public static String username;
     @FXML
     TextField usernameTextField;
     @FXML
@@ -23,7 +24,6 @@ public class LoginController implements Initializable {
     Button toSignupButton, loginButton;
     ChangeScene changeScene;
     MySQLConnection connection;
-    public static String username;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -31,19 +31,17 @@ public class LoginController implements Initializable {
         connection = new MySQLConnection();
     }
 
-
-    public void login(ActionEvent event) throws SQLException {
+    //if log in successfully
+    public void login(ActionEvent event) throws SQLException, IOException {
         connection.loginUser(usernameTextField.getText(), passwordField.getText());
         if (MySQLConnection.isLogin) {
-            try {
-                username = usernameTextField.getText();
-                changeScene.changeScene(event, "/gui/CenterController.fxml");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            username = usernameTextField.getText();
+
+            changeScene.changeScene(event, "/gui/CenterController.fxml");
         }
     }
 
+    //direct user to sign up page
     public void changeToSignup(ActionEvent event) {
         try {
             changeScene.changeScene(event, "/gui/RegistrationForm.fxml");

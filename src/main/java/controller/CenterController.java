@@ -1,10 +1,10 @@
 package controller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -13,12 +13,11 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CenterController implements Initializable {
+
     @FXML
-    public Tooltip dashboardTooltip;
+    AnchorPane mainAnchorPane;
     @FXML
-    AnchorPane mainAchorpane;
-    @FXML
-    Button dashboardButton, newOrderButton, statisticsButton, userButton;
+    JFXButton dashboardButton, newOrdersButton, statisticsButton, userButton;
     boolean isClickedDashboard = false;
     boolean isClickedAddPage = false;
     boolean isClickedUser = false;
@@ -34,7 +33,7 @@ public class CenterController implements Initializable {
                 isClickedUser = false;
             }
         });
-        newOrderButton.setOnAction(event -> {
+        newOrdersButton.setOnAction(event -> {
             if (!isClickedAddPage) {
                 initSelectedScene("/gui/AddOrderController.fxml");
                 // set not reload to the page after re-click
@@ -58,8 +57,8 @@ public class CenterController implements Initializable {
     public void initSelectedScene(String path) {
         try {
             AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(path)));
-            mainAchorpane.getChildren().clear();
-            mainAchorpane.getChildren().add(anchorPane);
+            mainAnchorPane.getChildren().clear();
+            mainAnchorPane.getChildren().add(anchorPane);
         } catch (IOException e) {
             e.printStackTrace();
         }

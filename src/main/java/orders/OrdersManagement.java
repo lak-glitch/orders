@@ -1,11 +1,14 @@
-//package orders;
+package orders;
+
+import javafx.collections.ObservableList;
+
 //
 //import customers.Customer;
 //
 //import java.sql.SQLException;
 //import java.util.Scanner;
 //
-//public class OrdersManagement {
+public class OrdersManagement {
 //    SQLOrders sqlOrders = new SQLOrders();
 //    Scanner sc = new Scanner(System.in);
 //
@@ -60,23 +63,13 @@
 //
 //    }
 //
-//    /**
-//     * tim kiem thong tin don hang dua theo ngay mua hang.
-//     */
-//    public void searchOrders() {
-//        String date_toSearch = sc.nextLine();
-//        boolean check = false;
-//        for (OrdersInformation o : ListProject.ordersList) {
-//            if (o.getOrderDate().equals(date_toSearch)) {
-//                check = true;
-//                System.out.println(o.getCustomer().getCustomerName() + "\n" + o.getCustomer().getCustomerPhoneNum() + "\n" + o.getProductName() + "\n" + o.getProductNumber() + "\n" + o.getPriceEachProduct() * o.getProductNumber() + "\n" + o.getOrderDate());
-//            }
-//        }
-//        if (!check)
-//            System.out.println("Invalid Date");
-//        ;
+    /**
+     * tim kiem thong tin don hang dua theo ngay mua hang.
+     */
+//    public ObservableList<OrdersInformation> searchOrders(ObservableList<OrdersInformation> ol, String dateToSearch) {
+//        ObservableList<>
 //    }
-//
+
 //    /**
 //     * su dung ma khuyen mai
 //     */
@@ -111,4 +104,4 @@
 //            }
 //        }
 //    }
-//}
+}

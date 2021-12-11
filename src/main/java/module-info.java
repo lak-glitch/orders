@@ -6,6 +6,8 @@ module com.example.HappyChoice {
     requires com.dlsc.formsfx;
     requires validatorfx;
     requires mysql.connector.java;
+    requires com.jfoenix;
+
 
     exports dashboard;
     opens dashboard to javafx.fxml;

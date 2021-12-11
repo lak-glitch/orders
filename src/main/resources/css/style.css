@@ -1,19 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 
-* {
-    -fx-font-family: 'Roboto', sans-serif;
-    -fx-font-weight: bold;
-}
 
-.registration-field {
-
-}
-
-.registration-button {
-}
+/** {*/
+/*    -fx-font-family: 'Roboto', sans-serif;*/
+/*}*/
 
 .menu-button {
     -fx-background-color: transparent;
+    -fx-text-fill: #fff;
+    /*-fx-border-color: #fff;*/
 }
 
 .menu-button:hover {
@@ -21,32 +15,44 @@
     -fx-border-style: hidden hidden hidden solid;
     -fx-border-color: #212529;
     -fx-border-width: 3px;
-
 }
 
 
 .taskbar-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: #6c757d;
+    -fx-background-color: #BC986A;
+    -fx-text-fill: #fff;
     -fx-font-size: 15;
+    -fx-font-family: "Roboto Thin";
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+
 }
 
 .taskbar-button:hover {
-    -fx-background-color: #ced4da;
-    -fx-text-fill: #184e77;
+    -fx-background-color: #daad86;
+
     -fx-border-style: hidden hidden solid hidden;
-    -fx-border-color: #184e77;
+    -fx-border-color: transparent;
     -fx-font-weight: bold;
 }
 
 .taskbar {
     -fx-border-style: hidden hidden solid hidden;
-    -fx-border-color: #dee2e6;
+    -fx-border-color: transparent;
+    -fx-background-color: #3c3c3c;
+    -fx-background-radius: 20px;
+
 }
 
 .search-field {
-    -fx-background-color: #edf6f9;
-    -fx-background-radius: 20;
+    -fx-background-color: #8D8741;
+    -fx-background-radius: 10px;
+}
+
+.search-text-field {
+    -fx-text-fill: #fff;
+    -fx-prompt-text-fill: #fff;
+    -fx-background-color: transparent;
 }
 
 .order-information {
@@ -59,31 +65,30 @@
 }
 
 .taskbar-style {
-    -fx-background-color: #ced4da;
-    -fx-text-fill: #184e77;
+    -fx-background-color: #BC986A;
     -fx-border-style: hidden hidden solid hidden;
-    -fx-border-color: #184e77;
+    -fx-border-color: transparent;
     -fx-font-weight: bold;
 }
 
-.list-view {
-    -fx-background-color: #fff;
-}
+/*.list-view {*/
+/*    -fx-background-color: #fff;*/
+/*}*/
 
-.list-view .list-cell:even {
-    -fx-background-color: #fff;
-}
+/*.list-view .list-cell:even {*/
+/*    -fx-background-color: #fff;*/
+/*}*/
 
-.list-view .list-cell:odd {
-    -fx-background-color: #fff;
-}
+/*.list-view .list-cell:odd {*/
+/*    -fx-background-color: #fff;*/
+/*}*/
 
-.list-view .list-cell:selected {
-    -fx-background-color:#e9ecef;
-    -fx-text-fill: #023e8a;
-    -fx-cursor: hand;
+/*.list-view .list-cell:selected {*/
+/*    -fx-background-color:#e9ecef;*/
+/*    -fx-text-fill: #023e8a;*/
+/*    -fx-cursor: hand;*/
 
-}
+/*}*/
 
 .table-view .list-cell:odd {
     -fx-background-color: #fff;
@@ -97,3 +102,39 @@
     -fx-background-radius: 20;
 }
 
+.registration-button {
+    -fx-background-color: #2f2f2f;
+    -fx-text-fill: #fff;
+    -fx-background-radius: 40px;
+    -fx-font-size: 15;
+}
+
+.registration-button:hover {
+    -fx-cursor: hand;
+}
+.login-button {
+    -fx-font-family: 'SansSerif';
+    -fx-font-weight: bold;
+    -fx-background-color: #90e0ef;
+    -fx-text-fill: #14213d;
+    -fx-background-radius: 40
+}
+
+.login-button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #14213d;
+    -fx-text-fill: #caf0f8;
+}
+
+.to-sign-up-button:hover {
+    -fx-font-size: 14px;
+}
+
+.signin-background {
+    -fx-background-color: linear-gradient(to bottom, #caf0f8, white);
+}
+
+.info-pane {
+    -fx-background-radius: 10px;
+    -fx-background-color: #fbeec1;
+}

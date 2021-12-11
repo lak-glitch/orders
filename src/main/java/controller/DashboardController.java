@@ -1,26 +1,26 @@
 package controller;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import dashboard.SetOrderInformation;
 import databaseconnection.MySQLConnection;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.*;
 import orders.OrdersInformation;
 import style.Style;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
     final SetOrderInformation setOrderInformation = new SetOrderInformation();
+    public Label allOrders, inProgressOrders, shippingOrders, canceledOrders;
     @FXML
     TableView<OrdersInformation> orderInformationView;
     @FXML
@@ -38,47 +38,124 @@ public class DashboardController implements Initializable {
     @FXML
     TableColumn<OrdersInformation, String> orderDateColumn = new TableColumn<>();
     @FXML
-    TableColumn<OrdersInformation, String> totalColumn = new TableColumn<>();
+    TableColumn<OrdersInformation, Number> totalColumn = new TableColumn<>();
     @FXML
     TableColumn<OrdersInformation, String> statusColumn = new TableColumn<>();
     @FXML
-    ObservableList<OrdersInformation> ordersInformationTable;
+    Button allOrdersButton, inProgressButton, shippedButton, canceledButton;
     @FXML
-    Button allOrdersButton, inProgressButton, shippedButton, canceledButton, addButton;
+    TextField searchTextField;
     Style style = new Style();
     MySQLConnection connection = new MySQLConnection();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        nameColumn.setSortType(TableColumn.SortType.ASCENDING);
         try {
-            ordersInformationTable = connection.getOrderInformation();
-            Collections.sort(ordersInformationTable, Comparator.comparing(o -> o.getCustomer().getLastName()));
+            connection.getOrderInformation();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
+        setAllOrderText();
+        setInProgressOrderText();
+        setShippingOrderText();
+        setCanceledOrderText();
+        nameColumn.setSortType(TableColumn.SortType.ASCENDING);
         setDefault();
-        style.setStyle(allOrdersButton, inProgressButton, shippedButton, canceledButton);
-        style.setStyle(inProgressButton, allOrdersButton, shippedButton, canceledButton);
-        style.setStyle(shippedButton, inProgressButton, allOrdersButton, canceledButton);
-        style.setStyle(canceledButton, inProgressButton, shippedButton, allOrdersButton);
-        setOrderInformation.display(orderNumberColumn,nameColumn,phoneColumn,productNameColumn,quantityColumn,orderDateColumn,shippingDateColumn,totalColumn,statusColumn, orderInformationView,ordersInformationTable);
-//        setEdit();
+        setAllOrders();
+        setInProgressOrders();
+        setShippedOrders();
+        setCanceledOrders();
     }
 
 
-    //set default for all-order button
+    //set default
     private void setDefault() {
+        setOrderInformation.display(orderNumberColumn, nameColumn, phoneColumn, productNameColumn, quantityColumn, orderDateColumn, shippingDateColumn, totalColumn, statusColumn, orderInformationView, MySQLConnection.ordersInformationList);
+        searchOrderInformation(MySQLConnection.ordersInformationList);
         allOrdersButton.getStyleClass().add("taskbar-style");
         inProgressButton.getStyleClass().remove("taskbar-style");
         shippedButton.getStyleClass().remove("taskbar-style");
         canceledButton.getStyleClass().remove("taskbar-style");
     }
 
-    public void setEdit() {
-        nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        phoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        OrdersInformation name = orderInformationView.getSelectionModel().getSelectedItem();
+
+    // show  order with all status
+    public void setAllOrders() {
+        allOrdersButton.setOnMouseClicked(mouseEvent -> {
+            style.setStyle(allOrdersButton, inProgressButton, shippedButton, canceledButton);
+            searchTextField.setText(null);
+            setOrderInformation.display(orderNumberColumn, nameColumn, phoneColumn, productNameColumn, quantityColumn, orderDateColumn, shippingDateColumn, totalColumn, statusColumn, orderInformationView, MySQLConnection.ordersInformationList);
+            searchOrderInformation(MySQLConnection.ordersInformationList);
+
+        });
     }
 
+    // set event for in-progress order button
+    public void setInProgressOrders() {
+        inProgressButton.setOnMouseClicked(mouseEvent -> {
+            searchTextField.setText(null);
+            setOrderInformation.display(orderNumberColumn, nameColumn, phoneColumn, productNameColumn, quantityColumn, orderDateColumn, shippingDateColumn, totalColumn, statusColumn, orderInformationView, MySQLConnection.ordersInformationInProgressList);
+            searchOrderInformation(MySQLConnection.ordersInformationInProgressList);
+            style.setStyle(inProgressButton, allOrdersButton, shippedButton, canceledButton);
+        });
+    }
+
+    // set event for shipped order button
+    public void setShippedOrders() {
+        shippedButton.setOnMouseClicked(mouseEvent -> {
+            searchTextField.setText(null);
+            setOrderInformation.display(orderNumberColumn, nameColumn, phoneColumn, productNameColumn, quantityColumn, orderDateColumn, shippingDateColumn, totalColumn, statusColumn, orderInformationView, MySQLConnection.ordersInformationShippedList);
+            style.setStyle(shippedButton, allOrdersButton, inProgressButton, canceledButton);
+            searchOrderInformation(MySQLConnection.ordersInformationShippedList);
+
+        });
+    }
+
+    // set event for canceled order button
+    public void setCanceledOrders() {
+        canceledButton.setOnMouseClicked(mouseEvent -> {
+            searchTextField.setText(null);
+            style.setStyle(canceledButton, allOrdersButton, shippedButton, inProgressButton);
+            setOrderInformation.display(orderNumberColumn, nameColumn, phoneColumn, productNameColumn, quantityColumn, orderDateColumn, shippingDateColumn, totalColumn, statusColumn, orderInformationView, MySQLConnection.ordersInformationCanceledList);
+            searchOrderInformation(MySQLConnection.ordersInformationCanceledList);
+
+        });
+    }
+
+    public void searchOrderInformation(ObservableList<OrdersInformation> ol) {
+        final FilteredList<OrdersInformation> filteredData = new FilteredList<>(ol, b -> true);
+        searchTextField.textProperty().addListener((observableValue, oldValue, newValue) -> filteredData.setPredicate(ordersInformation -> {
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
+            String lowerCaseFiltered = newValue.toLowerCase(Locale.ROOT);
+
+            if (ordersInformation.getCustomer().getCustomerName().toLowerCase(Locale.ROOT).contains(lowerCaseFiltered)) {
+                return true;
+            } else if (ordersInformation.getOrderDate().toLowerCase(Locale.ROOT).contains(lowerCaseFiltered)) {
+                return true;
+            } else if (ordersInformation.getOrderNumber().toLowerCase(Locale.ROOT).equals(lowerCaseFiltered)) {
+                return true;
+            } else {
+                return false;
+            }
+        }));
+        SortedList<OrdersInformation> orderData = new SortedList<>(filteredData);
+        orderData.comparatorProperty().bind(orderInformationView.comparatorProperty());
+        orderInformationView.setItems(orderData);
+    }
+
+    // display total orders in database
+    public void setAllOrderText() {
+        allOrders.setText(MySQLConnection.ordersInformationList.size() + "\n" + "Total orders");
+    }
+    public void setInProgressOrderText() {
+        inProgressOrders.setText(MySQLConnection.ordersInformationInProgressList.size() + "\n" + "In-progress orders");
+    }
+    public void setShippingOrderText() {
+        shippingOrders.setText(MySQLConnection.ordersInformationShippedList.size() + "\n" + "Shipped orders");
+    }
+    public void setCanceledOrderText() {
+        canceledOrders.setText(MySQLConnection.ordersInformationCanceledList.size() + "\n" + "Canceled orders");
+    }
 }

@@ -11,9 +11,6 @@ import product.Product;
 import registration.RegistrationForm;
 
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 public class MySQLConnection {
@@ -21,6 +18,12 @@ public class MySQLConnection {
     public static boolean isSignup = false;
     public static boolean isAdmin = false;
     public static boolean isUser = false;
+    public static boolean IS_LOAD = false;
+    public static ObservableList<OrdersInformation> ordersInformationList = FXCollections.observableArrayList();
+    public static ObservableList<OrdersInformation> ordersInformationInProgressList = FXCollections.observableArrayList();
+    public static ObservableList<OrdersInformation> ordersInformationShippedList = FXCollections.observableArrayList();
+    public static ObservableList<OrdersInformation> ordersInformationCanceledList = FXCollections.observableArrayList();
+    public static String customerPhoneNumber;
     PreparedStatement statement = null;
     Connection connection = null;
     ResultSet rs = null;
@@ -30,28 +33,19 @@ public class MySQLConnection {
     PreparedStatement psCheckEmailExist = null;
     int userRole;
 
-    public void Connection() throws ClassNotFoundException, SQLException {
-        //        Class.forName("com.mysql.cj.jdbc.Driver");
-        //        try {
-        //            statement = connection.prepareStatement("select * from users");
-        //            rs = statement.executeQuery();
-        //                        while (rs.next()) {
-        //                            String maDH = rs.getString(1);
-        //                            String tenKH  = rs.getString(2);
-        //                            String tenHang = rs.getString(3);
-        //                            String ngayDat = rs.getString(4);
-        //                            String ngayGiao = rs.getString(5);
-        //                            int giaTriHang = rs.getInt(6);
-        //                            String soDT = rs.getString(7);
-        //                            Orders o = new Orders(maDH, tenKH, tenHang, ngayDat, ngayGiao, giaTriHang, soDT);
-        //                            ListOrders.listOrders.add(o);
-        //                        }
-        //        } catch (Exception e) {
-        //            e.printStackTrace();
-        //        } finally {
-        //            assert rs != null;
-        //            rs.close();
-        //        }
+    public static double round(double value, int places) {
+        if (places < 0)
+            throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
+
+    private static String formatDateString(String s) {
+        String[] splitString = s.split("/");
+        return splitString[2] + "/" + splitString[1] + "/" + splitString[0];
     }
 
     public void signupUser(RegistrationForm registrationForm) throws SQLException {
@@ -98,12 +92,11 @@ public class MySQLConnection {
             if (!rs.isBeforeFirst()) {
                 System.out.println("User is not exist!");
             } else {
-                psCheckUserExist = connection.prepareStatement("SELECT username, password, userRole FROM users");
+                psCheckUserExist = connection.prepareStatement("SELECT username, password, userRole,phoneNumber FROM users");
                 rs = psCheckUserExist.executeQuery();
                 while (rs.next()) {
                     if (username.equals(rs.getString("username"))) {
                         if (password.equals(rs.getString("password"))) {
-                            System.out.println("Log in!");
                             isLogin = true;
                             if (rs.getString("userRole").equals("1")) {
                                 userRole = 1;
@@ -111,10 +104,8 @@ public class MySQLConnection {
                             } else {
                                 userRole = 2;
                                 isUser = true;
+                                customerPhoneNumber = rs.getString("phoneNumber");
                             }
-                            System.out.println(isAdmin);
-                            System.out.println(isUser);
-                            System.out.println(userRole);
                         } else {
                             System.out.println("Wrong password!");
                         }
@@ -179,6 +170,7 @@ public class MySQLConnection {
             statement1.setString(5, LoginController.username);
             statement1.executeUpdate();
             break;
+
         }
         rt.close();
     }
@@ -206,44 +198,49 @@ public class MySQLConnection {
     }
 
     // get order information from database
-    public ObservableList<OrdersInformation> getOrderInformation() throws ClassNotFoundException, SQLException {
-        ObservableList<OrdersInformation> ordersInformationList = FXCollections.observableArrayList();
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/ordersmanagement", "root", "Hien11092002");
-        String sql;
-        if (isAdmin) {
-            sql = "SELECT * FROM orderdetails";
-            statement = connection.prepareStatement(sql);
-        } else if (isUser) {
-            sql = "SELECT * FROM orderdetails WHERE username = ?";
-            statement = connection.prepareStatement(sql);
-            statement.setString(1,LoginController.username);
-        }
-//
-//        sql = "SELECT * FROM orderdetails";
-//        statement = connection.prepareStatement(sql);
-        rs = statement.executeQuery();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        while (rs.next()) {
-            String orderNumber = rs.getString(1);
-            String customerName = rs.getString(2);
-            String customerPhoneNumber = rs.getString(3);
-            String productName = rs.getString(4);
-            String quantity = rs.getString(5);
-            String orderShippingDate = rs.getString(6);
-            String orderDate = rs.getString(7);
-            String total = rs.getString(8);
-            String status = rs.getString(9);
-            Customer customer = new Customer(customerName,customerPhoneNumber);
-            Product product = new Product(productName,Double.parseDouble(total),Integer.parseInt(quantity));
-            OrdersInformation ordersInformation = new OrdersInformation(orderNumber,customer,product,orderDate,orderShippingDate,status);
-            ordersInformationList.add(ordersInformation);
-        }
-        return ordersInformationList;
-    }
+    public void getOrderInformation() throws ClassNotFoundException, SQLException {
+        if (!IS_LOAD) {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/ordersmanagement", "root", "Hien11092002");
+            String sql;
+            if (isAdmin) {
+                sql = "SELECT * FROM orderdetails";
+                statement = connection.prepareStatement(sql);
+            } else if (isUser) {
+                sql = "SELECT * FROM orderdetails WHERE username = ?";
+                statement = connection.prepareStatement(sql);
+                statement.setString(1, LoginController.username);
+            }
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                String orderNumber = rs.getString(1);
+                String customerName = rs.getString(2);
+                String customerPhone = rs.getString(3);
+                String productName = rs.getString(4);
+                String quantity = rs.getString(5);
+                String orderShippingDate = formatDateString(rs.getString(6));
+                String orderDate = formatDateString(rs.getString(7));
+                int total = Integer.parseInt(rs.getString(8));
+                String status = rs.getString(9);
+                Customer customer = new Customer(customerName, customerPhone);
+                Product product = new Product(productName, total, Integer.parseInt(quantity));
+                OrdersInformation ordersInformation = new OrdersInformation(orderNumber, customer, product, orderDate, orderShippingDate, status);
+                ordersInformationList.add(ordersInformation);
 
-//    private String reverseString(String date) {
-//        StringBuilder sb = new StringBuilder(date).reverse();
-//        return String.valueOf(sb);
-//    }
+                switch (status) {
+                    // add in-progress order to the list
+                    case "In-progress" -> ordersInformationInProgressList.add(ordersInformation);
+
+                    // add shipped order to the list
+
+                    case "Shipped" -> ordersInformationShippedList.add(ordersInformation);
+
+
+                    // add canceled order to the list
+                    case "Canceled" -> ordersInformationCanceledList.add(ordersInformation);
+                }
+                IS_LOAD = true;
+            }
+        }
+    }
 }

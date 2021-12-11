@@ -1,63 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDialog?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1231.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddController">
+<AnchorPane prefHeight="800.0" prefWidth="1191.0" style="-fx-background-color: #557A95;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddController">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #495057;">
+      <Pane layoutX="246.0" layoutY="112.0" prefHeight="576.0" prefWidth="701.0" style="-fx-background-color: #FFF;">
          <children>
-            <AnchorPane layoutX="3.0" prefHeight="220.0" prefWidth="1231.0">
-               <children>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="237.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/help_24px.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <Label layoutX="57.0" layoutY="61.0" prefHeight="70.0" prefWidth="178.0" text="Add new order " textFill="WHITE">
+            <TextField fx:id="nameTextField" layoutX="88.0" layoutY="104.0" prefHeight="39.0" prefWidth="196.0" promptText="Name">
                <font>
-                  <Font name="Arial Rounded MT Bold" size="24.0" />
+                  <Font name="System Bold" size="12.0" />
+               </font></TextField>
+            <TextField fx:id="quantityTextField" layoutX="417.0" layoutY="251.0" prefHeight="39.0" prefWidth="196.0" promptText="Quantity" />
+            <TextField fx:id="productCostTextField" editable="false" layoutX="417.0" layoutY="471.0" prefHeight="39.0" prefWidth="196.0" promptText="Total" />
+            <TextField fx:id="dateTextField" editable="false" layoutX="88.0" layoutY="251.0" prefHeight="39.0" prefWidth="196.0" promptText="Order date" />
+            <Button fx:id="addButton" layoutX="88.0" layoutY="471.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="196.0" text="Add" />
+            <DatePicker fx:id="datePicker" layoutX="88.0" layoutY="329.0" prefHeight="39.0" prefWidth="196.0" promptText="Shipping date" />
+            <TextField fx:id="phoneTextField" layoutX="88.0" layoutY="182.0" prefHeight="39.0" prefWidth="196.0" promptText="Phone">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></TextField>
+            <TextField fx:id="priceEachTextField" editable="false" layoutX="417.0" layoutY="329.0" prefHeight="39.0" prefWidth="196.0" promptText="Price each" />
+            <JFXComboBox fx:id="productNameList" layoutX="417.0" layoutY="104.0" prefHeight="39.0" prefWidth="196.0" />
+            <JFXDialog layoutX="300.0" layoutY="61.0" prefHeight="81.0" prefWidth="60.0" />
+            <Label layoutX="556.0" layoutY="380.0" prefHeight="17.0" prefWidth="114.0" text="Unit: VND">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
                </font>
             </Label>
-            <Text fill="WHITE" focusTraversable="true" layoutX="57.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="In the order details section, you can review and mange all orders with their details. You can view and edit many information such as IDs of all orders, ordered product, order date, price and order status. Access to this area is limited. Only administrations and team leaders can reach. The changes you make will be approved after they checked.    " wrappingWidth="907.0">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Text>
-         </children>
-      </AnchorPane>
-      <Pane layoutY="220.0" prefHeight="71.0" prefWidth="1234.0" styleClass="taskbar">
-         <children>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="58.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="135.0" styleClass="taskbar-button" stylesheets="@../css/style.css" text="Add Order">
-               <font>
-                  <Font name="Arial Black" size="13.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
          </children>
       </Pane>
-      <TextField fx:id="nameTextField" layoutX="62.0" layoutY="374.0" promptText="Name" />
-      <TextField fx:id="phoneTextField" layoutX="63.0" layoutY="455.0" promptText="Phone" />
-      <TextField fx:id="productNameTextField" layoutX="310.0" layoutY="374.0" promptText="ProductName" />
-      <TextField fx:id="quantityTextField" layoutX="311.0" layoutY="455.0" promptText="Quantity" />
-      <TextField fx:id="productCostTextField" layoutX="543.0" layoutY="374.0" promptText="Product Cost" />
-      <TextField fx:id="dateTextField" layoutX="544.0" layoutY="455.0" promptText="Date" />
-      <Button fx:id="addButton" layoutX="768.0" layoutY="374.0" mnemonicParsing="false" onAction="#setAddButton" text="Add" />
-      <DatePicker fx:id="datePicker" layoutX="61.0" layoutY="541.0" />
-      <ChoiceBox fx:id="statusList" layoutX="310.0" layoutY="541.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

@@ -10,93 +10,128 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1231.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1129.0" style="-fx-background-color: #659DBD;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
    <children>
-      <AnchorPane prefHeight="220.0" prefWidth="1231.0" style="-fx-background-color: #495057;">
+      <TableView fx:id="orderInformationView" editable="true" layoutX="37.0" layoutY="357.0" prefHeight="390.0" prefWidth="1053.0">
+        <columns>
+            <TableColumn fx:id="orderNumberColumn" editable="false" prefWidth="91.0" text="Order Number" />
+          <TableColumn fx:id="nameColumn" prefWidth="134.0" resizable="false" text="Name" />
+          <TableColumn fx:id="phoneColumn" prefWidth="95.0" resizable="false" sortable="false" text="Phone" />
+            <TableColumn fx:id="productNameColumn" prefWidth="155.0" resizable="false" sortable="false" text="Product" />
+            <TableColumn fx:id="quantityColumn" prefWidth="103.0" resizable="false" sortable="false" text="Quantity" />
+            <TableColumn fx:id="orderDateColumn" prefWidth="133.0" resizable="false" text="Order Date" />
+            <TableColumn fx:id="shippingDateColumn" prefWidth="143.0" resizable="false" text="Shipping Date" />
+            <TableColumn fx:id="totalColumn" prefWidth="120.0" text="Total" />
+            <TableColumn fx:id="statusColumn" prefWidth="90.0" sortable="false" text="Status" />
+        </columns>
+      </TableView>
+      <Pane layoutX="37.0" layoutY="297.0" prefHeight="46.0" prefWidth="463.0" styleClass="search-field" stylesheets="@../css/style.css">
          <children>
-            <Label layoutX="57.0" layoutY="61.0" prefHeight="69.0" prefWidth="235.0" text="Order Details" textFill="WHITE">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="24.0" />
-               </font>
-            </Label>
-            <Text fill="WHITE" focusTraversable="true" layoutX="57.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="In the order details section, you can review and mange all orders with their details. You can view and edit many information such as IDs of all orders, ordered product, order date, price and order status. Access to this area is limited. Only administrations and team leaders can reach. The changes you make will be approved after they checked.    " wrappingWidth="907.0">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Text>
-            <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="218.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+            <TextField fx:id="searchTextField" layoutX="49.0" layoutY="10.0" prefHeight="24.0" prefWidth="400.0" promptText="Search for order ID, customer, order status or something..." styleClass="search-text-field" stylesheets="@../css/style.css" />
+            <ImageView fitHeight="26.0" fitWidth="24.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../icons/help_24px.png" />
+                  <Image url="@../icons/search_24px.png" />
                </image>
             </ImageView>
          </children>
-      </AnchorPane>
-      <AnchorPane layoutY="219.0" prefHeight="580.0" prefWidth="1231.0" styleClass="taskbar" stylesheets="@../css/style.css">
+      </Pane>
+      <Pane layoutX="37.0" layoutY="190.0" prefHeight="79.0" prefWidth="1054.0" styleClass="taskbar" stylesheets="@../css/style.css">
          <children>
-            <AnchorPane layoutX="616.0" layoutY="20.0" prefHeight="39.0" prefWidth="557.0" styleClass="search-field" stylesheets="@../css/style.css">
-               <children>
-                  <TextField layoutX="45.0" layoutY="3.0" prefHeight="35.0" prefWidth="494.0" promptText="Search for order ID, customer, order status or something..." />
-                  <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/search_24px.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <Pane layoutY="1.0" prefHeight="70.0" prefWidth="538.0" styleClass="taskbar">
-               <children>
-                  <Button fx:id="canceledButton" layoutX="405.0" minWidth="34.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="135.0" styleClass="taskbar-button" stylesheets="@../css/style.css" text="Canceled">
-                     <font>
-                        <Font name="Arial Black" size="13.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="shippedButton" layoutX="270.0" minWidth="34.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="135.0" styleClass="taskbar-button" stylesheets="@../css/style.css" text="Shipped">
-                     <font>
-                        <Font name="Arial Black" size="13.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="inProgressButton" layoutX="135.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="71.0" prefWidth="135.0" styleClass="taskbar-button" stylesheets="@../css/style.css" text="In progress">
-                     <font>
-                        <Font name="Arial Black" size="13.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="allOrdersButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="58.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="135.0" styleClass="taskbar-button" stylesheets="@../css/style.css" text="All Orders">
-                     <font>
-                        <Font name="Arial Black" size="13.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-               </children>
-            </Pane>
-            <TableView fx:id="orderInformationView" editable="true" layoutY="95.0" prefHeight="390.0" prefWidth="1170.0">
-              <columns>
-                  <TableColumn fx:id="orderNumberColumn" editable="false" prefWidth="95.19997864961624" text="Order Number" />
-                <TableColumn fx:id="nameColumn" prefWidth="180.00001525878906" resizable="false" text="Name" />
-                <TableColumn fx:id="phoneColumn" prefWidth="100.0" resizable="false" sortable="false" text="Phone" />
-                  <TableColumn fx:id="productNameColumn" prefWidth="150.0" resizable="false" sortable="false" text="Product" />
-                  <TableColumn fx:id="quantityColumn" prefWidth="100.0" resizable="false" sortable="false" text="Quantity" />
-                  <TableColumn fx:id="orderDateColumn" prefWidth="150.0" resizable="false" text="Order Date" />
-                  <TableColumn fx:id="shippingDateColumn" prefWidth="100.0" resizable="false" text="Shipping Date" />
-                  <TableColumn fx:id="totalColumn" prefWidth="155.199951171875" text="Total" />
-                  <TableColumn fx:id="statusColumn" prefWidth="106.39990234375" sortable="false" text="Status" />
-              </columns>
-            </TableView>
-            <Button fx:id="addButton" layoutX="789.0" layoutY="518.0" mnemonicParsing="false" text="Button" />
+            <Button fx:id="canceledButton" layoutX="831.0" minWidth="34.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="223.0" styleClass="taskbar-button" stylesheets="@../css/style.css" text="Canceled">
+               <font>
+                  <Font name="Arial Black" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="allOrdersButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="58.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="223.0" styleClass="taskbar-button" stylesheets="@../css/style.css" text="All Orders">
+               <font>
+                  <Font name="Arial Black" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="inProgressButton" layoutX="281.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="79.0" prefWidth="223.0" styleClass="taskbar-button" stylesheets="@../css/style.css" text="In progress">
+               <font>
+                  <Font name="Arial Black" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="shippedButton" layoutX="555.0" minWidth="34.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="223.0" styleClass="taskbar-button" stylesheets="@../css/style.css" text="Shipped">
+               <font>
+                  <Font name="Arial Black" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Line endX="-43.0" layoutX="324.0" layoutY="40.0" startX="-101.00001525878906" stroke="WHITE" />
+            <Line endX="-59.0" endY="-0.5" layoutX="614.0" layoutY="40.0" startX="-110.0" startY="-0.5" stroke="WHITE" />
+            <Line endX="-49.0" endY="-0.5" layoutX="880.0" layoutY="40.0" startX="-102.0" startY="-0.5" stroke="WHITE" />
          </children>
-      </AnchorPane>
+      </Pane>
+      <Pane layoutX="35.0" layoutY="50.0" prefHeight="90.0" prefWidth="234.0" styleClass="info-pane" stylesheets="@../css/style.css">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/total_sales_48px.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="allOrders" alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" layoutY="23.0" prefHeight="50.0" prefWidth="151.0" text="Label">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="283.0" layoutY="50.0" prefHeight="90.0" prefWidth="286.0" styleClass="info-pane" stylesheets="@../css/style.css">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/in_progress_48px.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="inProgressOrders" alignment="CENTER" contentDisplay="CENTER" layoutX="66.0" layoutY="12.0" prefHeight="66.0" prefWidth="223.0" text="Label">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="585.0" layoutY="50.0" prefHeight="90.0" prefWidth="259.0" styleClass="info-pane" stylesheets="@../css/style.css">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="21.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/free_shipping_48px.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="shippingOrders" alignment="CENTER" contentDisplay="CENTER" layoutX="87.0" layoutY="12.0" prefHeight="66.0" prefWidth="151.0" text="Label">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="859.0" layoutY="50.0" prefHeight="90.0" prefWidth="234.0" styleClass="info-pane" stylesheets="@../css/style.css">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/banned_48px.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="canceledOrders" alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" layoutY="12.0" prefHeight="66.0" prefWidth="151.0" text="Label">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

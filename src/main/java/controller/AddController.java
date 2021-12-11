@@ -1,60 +1,79 @@
 package controller;
 
 import alert.SetDateConverter;
+import com.jfoenix.controls.JFXComboBox;
 import databaseconnection.MySQLConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.util.StringConverter;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class AddController implements Initializable {
     public DatePicker datePicker;
-    public ChoiceBox<String> statusList;
-    int count = 0;
     public TextField nameTextField;
     public TextField phoneTextField;
-    public TextField productNameTextField;
+    public JFXComboBox<String> productNameList;
     public TextField quantityTextField;
     public TextField dateTextField;
     public TextField productCostTextField;
+    public TextField priceEachTextField;
     public Button addButton;
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    Date orderDate = new Date();
     MySQLConnection mySQLConnection;
-    ObservableList<String> observableList = FXCollections.observableArrayList("In progress", "Shipping", "Shipped", "Canceled");
+    ObservableList<String> observableList = FXCollections.observableArrayList("Noodles", "Steamed Rice", "Lobster", "Fried Rice", "Meat", "Vegetables");
+    ObservableList<Integer> priceList = FXCollections.observableArrayList(15000, 5000,100000,15000,30000,2000);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         mySQLConnection = new MySQLConnection();
-        statusList.setItems(observableList);
+        productNameList.setItems(observableList);
         datePicker.setEditable(false);
         SetDateConverter.setFormat(datePicker);
+        if (MySQLConnection.isUser) {
+            setUserRole();
+        }
     }
 
+    public void setAdminRole() {
 
-    public void setAddButton() {
-        count++;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        LocalDateTime now = LocalDateTime.now();
-        String name = nameTextField.getText();
-        String phoneNumber = phoneTextField.getText();
-        String productName = productNameTextField.getText();
-        double productCost = Double.parseDouble(productCostTextField.getText());
-        int quantity = Integer.parseInt(quantityTextField.getText());
-        String total = String.valueOf(productCost*quantity);
+    }
 
-        String date = dtf.format(now);
-        String order = String.valueOf(count);
-        LocalDate shippingDate = datePicker.getValue();
-        String status = statusList.getValue();
-        mySQLConnection.addToOrder(order, String.valueOf(shippingDate), total, date, productName, name,status,phoneNumber, quantityTextField.getText());
+    public void setUserRole() {
+        nameTextField.setText(LoginController.username);
+        nameTextField.setEditable(false);
+        //        nameTextField.setDisable(true);
+        phoneTextField.setText(MySQLConnection.customerPhoneNumber);
+        phoneTextField.setEditable(false);
+        //        phoneTextField.setDisable(true);
+        dateTextField.setText(formatter.format(orderDate));
+        //        if (productNameList.getValue().equals("Noodles")) {
+        //            productCostTextField.setText("15");
+        //        }
+        productNameList.setOnAction(mouseEvent -> {
+            priceEachTextField.setText(null);
+            quantityTextField.setText(null);
+            productCostTextField.setText(null);
+//            priceEachTextField.setText(productNameList.getValue());
+            int index = productNameList.getSelectionModel().getSelectedIndex();
+            priceEachTextField.setText(String.valueOf(priceList.get(index)));
+        });
+        quantityTextField.setOnMouseExited(mouseEvent -> {
+            if(quantityTextField.getText() != null) {
+                int price = Integer.parseInt(priceEachTextField.getText()) * Integer.parseInt(quantityTextField.getText());
+                productCostTextField.setText(String.valueOf(price));
+            }
+        });
     }
 }
