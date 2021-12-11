@@ -35,8 +35,7 @@ public class OrdersManagement {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public void removeOrders() throws SQLException, ClassNotFoundException {
-        String name_toDelete = sc.nextLine();
+    public void removeOrders(String name_toDelete) throws SQLException, ClassNotFoundException {
         ListProject.ordersList.removeIf(o -> o.getCustomerName().equals(name_toDelete));
         sqlOrders.Connection1();
         sqlOrders.usingDelete(name_toDelete);
