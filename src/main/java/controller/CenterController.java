@@ -1,14 +1,16 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
+import customers.Admin;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -18,12 +20,24 @@ public class CenterController implements Initializable {
     AnchorPane mainAnchorPane;
     @FXML
     JFXButton dashboardButton, newOrdersButton, statisticsButton, userButton;
+    @FXML
+    Label roleLabel;
     boolean isClickedDashboard = false;
     boolean isClickedAddPage = false;
     boolean isClickedUser = false;
-
+    Admin admin = new Admin();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (LoginController.isAdmin) {
+            try {
+                admin.getAllCustomerName();
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            roleLabel.setText("Admin");
+        } else {
+            roleLabel.setText("Customer");
+        }
         dashboardButton.setOnAction(event -> {
             if (!isClickedDashboard) {
                 initSelectedScene("/gui/DashboardController.fxml");

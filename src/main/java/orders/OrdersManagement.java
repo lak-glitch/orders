@@ -26,7 +26,7 @@ public class OrdersManagement {
 //        sc.nextLine();
 //        String new_date = sc.nextLine();
 //        OrdersInformation o = new OrdersInformation(new Customer(new_cusName, new_phoneNum), new_proName, new_numberPro, new_proCost, new_date);
-//        ListProject.ordersList.add(o);
+//        OrderList.ordersList.add(o);
 //        sqlOrders.Connection1();
 //        sqlOrders.usingInsert(new_cusName, new_phoneNum, new_proName, new_numberPro, new_priceEachProduct, new_date);
 //    }
@@ -37,7 +37,7 @@ public class OrdersManagement {
 //     */
 //    public void removeOrders() throws SQLException, ClassNotFoundException {
 //        String name_toDelete = sc.nextLine();
-//        ListProject.ordersList.removeIf(o -> o.getCustomer().getCustomerName().equals(name_toDelete));
+//        OrderList.ordersList.removeIf(o -> o.getCustomer().getCustomerName().equals(name_toDelete));
 //        sqlOrders.Connection1();
 //        sqlOrders.usingDelete(name_toDelete);
 //    }
@@ -49,7 +49,7 @@ public class OrdersManagement {
 //    public void editCustomerName() throws SQLException, ClassNotFoundException {
 //        String name_toEdit = sc.nextLine();
 //        boolean check = false;
-//        for (OrdersInformation o : ListProject.ordersList) {
+//        for (OrdersInformation o : OrderList.ordersList) {
 //            if (o.getCustomer().getCustomerName().contains(name_toEdit)) {
 //                check = true;
 //                String new_customer = sc.nextLine();
@@ -76,7 +76,7 @@ public class OrdersManagement {
 //    public double usingPromotion() {
 //
 //        double promotion = 0;
-//        for (OrdersInformation o : ListProject.ordersList) {
+//        for (OrdersInformation o : OrderList.ordersList) {
 //            if (o.getPriceEachProduct() * o.getProductNumber() < 60000) {
 //                promotion = o.getProductNumber() * o.getPriceEachProduct();
 //            } else if (o.getPriceEachProduct() * o.getProductNumber() < 100000) {
@@ -92,14 +92,14 @@ public class OrdersManagement {
 //     * sap xep tang dan theo so tien mua hang.
 //     */
 //    public void SortedByProductCost() {
-//        for (int i = 0; i < ListProject.ordersList.size() - 1; i++) {
-//            for (int j = i + 1; j < ListProject.ordersList.size(); j++) {
-//                OrdersInformation orders1 = ListProject.ordersList.get(i);
-//                OrdersInformation orders2 = ListProject.ordersList.get(j);
+//        for (int i = 0; i < OrderList.ordersList.size() - 1; i++) {
+//            for (int j = i + 1; j < OrderList.ordersList.size(); j++) {
+//                OrdersInformation orders1 = OrderList.ordersList.get(i);
+//                OrdersInformation orders2 = OrderList.ordersList.get(j);
 //                if (orders1.getPriceEachProduct() * orders1.getProductNumber() > orders2.getPriceEachProduct() * orders2.getProductNumber()) {
 //                    OrdersInformation orders_temp = orders1;
-//                    ListProject.ordersList.set(i, orders2);
-//                    ListProject.ordersList.set(j, orders_temp);
+//                    OrderList.ordersList.set(i, orders2);
+//                    OrderList.ordersList.set(j, orders_temp);
 //                }
 //            }
 //        }

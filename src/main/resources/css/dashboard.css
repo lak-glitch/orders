@@ -1,0 +1,18 @@
+.shipped-button {
+    -fx-background-color: #f1faee;
+    -fx-background-radius: 20;
+}
+
+.cancel-button {
+    -fx-background-color: #f1faee;
+    -fx-background-radius: 20;
+
+}
+
+.shipped-button:hover {
+    -fx-background-color:#a8dadc ;
+}
+
+.cancel-button:hover {
+    -fx-background-color:#a8dadc ;
+}

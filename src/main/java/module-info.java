@@ -21,8 +21,6 @@ module com.example.HappyChoice {
     opens orders to javafx.fxml;
     exports main;
     opens main to javafx.fxml;
-    exports add.order;
-    opens add.order to javafx.fxml;
     exports product;
     opens product to javafx.fxml;
 }

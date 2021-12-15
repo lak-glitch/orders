@@ -30,7 +30,7 @@ public class SQLOrders {
                 int pro_cost = rs.getInt(5);
                 String date = rs.getString(6);
 //                OrdersInformation o = new OrdersInformation(new Customer(cus_name, phone_number), pro_name, pro_number, pro_cost, date);
-//                ListProject.ordersList.add(o);
+//                OrderList.ordersList.add(o);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDialog?>
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXSnackbar?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -10,29 +10,69 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1191.0" style="-fx-background-color: #557A95;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddController">
+<AnchorPane fx:id="anchor" prefHeight="800.0" prefWidth="1191.0" style="-fx-background-color: #557A95;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddController">
    <children>
-      <Pane layoutX="246.0" layoutY="112.0" prefHeight="576.0" prefWidth="701.0" style="-fx-background-color: #FFF;">
+      <Pane fx:id="addPane" layoutX="140.0" layoutY="78.0" prefHeight="643.0" prefWidth="912.0" style="-fx-background-color: #FFF;">
          <children>
-            <TextField fx:id="nameTextField" layoutX="88.0" layoutY="104.0" prefHeight="39.0" prefWidth="196.0" promptText="Name">
+            <Label layoutX="275.0" layoutY="51.0" text="Shopping time!">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="64.0" />
+               </font>
+            </Label>
+            <TextField fx:id="nameTextField" layoutX="165.0" layoutY="181.0" prefHeight="39.0" prefWidth="196.0" promptText="Name">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></TextField>
-            <TextField fx:id="quantityTextField" layoutX="417.0" layoutY="251.0" prefHeight="39.0" prefWidth="196.0" promptText="Quantity" />
-            <TextField fx:id="productCostTextField" editable="false" layoutX="417.0" layoutY="471.0" prefHeight="39.0" prefWidth="196.0" promptText="Total" />
-            <TextField fx:id="dateTextField" editable="false" layoutX="88.0" layoutY="251.0" prefHeight="39.0" prefWidth="196.0" promptText="Order date" />
-            <Button fx:id="addButton" layoutX="88.0" layoutY="471.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="196.0" text="Add" />
-            <DatePicker fx:id="datePicker" layoutX="88.0" layoutY="329.0" prefHeight="39.0" prefWidth="196.0" promptText="Shipping date" />
-            <TextField fx:id="phoneTextField" layoutX="88.0" layoutY="182.0" prefHeight="39.0" prefWidth="196.0" promptText="Phone">
+            <TextField fx:id="quantityTextField" layoutX="587.0" layoutY="259.0" prefHeight="39.0" prefWidth="196.0" promptText="Quantity" />
+            <TextField fx:id="productCostTextField" editable="false" layoutX="587.0" layoutY="435.0" prefHeight="39.0" prefWidth="196.0" promptText="Total" />
+            <DatePicker fx:id="datePicker" layoutX="165.0" layoutY="406.0" prefHeight="39.0" prefWidth="196.0" promptText="Shipping date" />
+            <TextField fx:id="phoneTextField" layoutX="165.0" layoutY="259.0" prefHeight="39.0" prefWidth="196.0" promptText="Phone">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></TextField>
-            <TextField fx:id="priceEachTextField" editable="false" layoutX="417.0" layoutY="329.0" prefHeight="39.0" prefWidth="196.0" promptText="Price each" />
-            <JFXComboBox fx:id="productNameList" layoutX="417.0" layoutY="104.0" prefHeight="39.0" prefWidth="196.0" />
-            <JFXDialog layoutX="300.0" layoutY="61.0" prefHeight="81.0" prefWidth="60.0" />
-            <Label layoutX="556.0" layoutY="380.0" prefHeight="17.0" prefWidth="114.0" text="Unit: VND">
+            <TextField fx:id="priceEachTextField" editable="false" layoutX="587.0" layoutY="328.0" prefHeight="39.0" prefWidth="196.0" promptText="Price each" />
+            <JFXComboBox fx:id="productNameList" layoutX="587.0" layoutY="181.0" prefHeight="39.0" prefWidth="196.0" />
+            <Label layoutX="726.0" layoutY="373.0" prefHeight="17.0" prefWidth="114.0" text="Unit: VND">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="addButton" buttonType="RAISED" layoutX="669.0" layoutY="533.0" onAction="#addOrder" prefHeight="25.0" prefWidth="114.0" ripplerFill="#d10606" styleClass="add-button" stylesheets="@../css/style.css" text="Add" />
+            <DatePicker fx:id="orderDate" layoutX="165.0" layoutY="328.0" prefHeight="39.0" prefWidth="196.0" promptText="Order date" />
+            <Label layoutX="39.0" layoutY="191.0" text="Customer Name" underline="true">
+               <font>
+                  <Font name="System Italic" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="42.0" layoutY="270.0" text="Phone number" underline="true">
+               <font>
+                  <Font name="System Italic" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="53.0" layoutY="339.0" text="Order date" underline="true">
+               <font>
+                  <Font name="System Italic" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="45.0" layoutY="416.0" text="Shipping date" underline="true">
+               <font>
+                  <Font name="System Italic" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="469.0" layoutY="191.0" text="Product Name" underline="true">
+               <font>
+                  <Font name="System Italic" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="485.0" layoutY="269.0" text="Quantity" underline="true">
+               <font>
+                  <Font name="System Italic" size="13.0" />
+               </font>
+            </Label>
+            <JFXSnackbar fx:id="snackbar" prefWidth="912.0" stylesheets="@../css/style.css" />
+            <Label layoutX="480.0" layoutY="339.0" text="Price each" underline="true">
+               <font>
+                  <Font name="System Italic" size="13.0" />
                </font>
             </Label>
          </children>

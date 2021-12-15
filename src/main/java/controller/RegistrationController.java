@@ -1,23 +1,16 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXRadioButton;
-import com.jfoenix.controls.JFXTextField;
-import databaseconnection.MySQLConnection;
-import javafx.animation.PauseTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import databaseconnection.SQL;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Duration;
 import registration.RegistrationForm;
 import scene.ChangeScene;
 
@@ -44,7 +37,7 @@ public class RegistrationController implements Initializable {
     String username;
     String password;
     String email = null;
-    MySQLConnection connection;
+    SQL connection;
     ChangeScene changeScene;
     private final String setMouseEntered = "-fx-background-color: #ff0055;" +
             "-fx-background-radius: 40px;";
@@ -56,7 +49,7 @@ public class RegistrationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         changeScene = new ChangeScene();
-        connection = new MySQLConnection();
+        connection = new SQL();
         getUsername();
     }
 
@@ -72,7 +65,7 @@ public class RegistrationController implements Initializable {
             try {
                 registrationForm = new RegistrationForm(username, password, email);
                 connection.signupUser(registrationForm);
-                if (MySQLConnection.isSignup) {
+                if (SQL.isSignup) {
                     changeScene.changeScene(event, "/gui/LoginController.fxml");
                 }
             } catch (IOException | SQLException e) {

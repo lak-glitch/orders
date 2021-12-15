@@ -22,7 +22,7 @@ public class SQLProducts {
             String productCode  = rs.getString(2);
             int productCost = rs.getInt(3);
 //            Product p = new Product(productName, productCode, productCost);
-//            ListProject.productsList.add(p);
+//            OrderList.productsList.add(p);
         }
     }
 }
