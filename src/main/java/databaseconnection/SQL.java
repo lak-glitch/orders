@@ -23,23 +23,6 @@ public class SQL {
     public SQL() {
     }
 
-
-
-    public static double round(double value, int places) {
-        if (places < 0)
-            throw new IllegalArgumentException();
-
-        long factor = (long) Math.pow(10, places);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
-    }
-
-    //    private static String formatDateString(String s) {
-    //        String[] splitString = s.split("/");
-    //        return splitString[2] + "/" + splitString[1] + "/" + splitString[0];
-    //    }
-
     public void signupUser(RegistrationForm registrationForm) throws SQLException {
         try {
             connection = GetConnection.getConnection();
@@ -71,32 +54,7 @@ public class SQL {
         }
     }
 
-    // input log in information of user
 
-
-    public void addToProduct(String productName, double productCost, int quantity) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/ordersmanagement", "root", "Hien11092002");
-            statement = connection.prepareStatement("INSERT INTO products(productName, productCost, quantity) VALUES (?,?,?)");
-            statement.setString(1, productName);
-            statement.setString(2, String.valueOf(productCost));
-            statement.setString(3, String.valueOf(quantity));
-            statement.executeUpdate();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // get update in order detail table
-    public void getUpdateOrderDetailTable(String phoneNumber) throws SQLException, ClassNotFoundException {
-        connection = GetConnection.getConnection();
-        String sql = "UPDATE orderdetails" + "SET phoneNumber = ?" + "WHERE username = ?";
-        psCheckUserExist = connection.prepareStatement(sql);
-        psCheckUserExist.setString(1, phoneNumber);
-        psCheckUserExist.setString(2, LoginController.username);
-        psCheckUserExist.executeUpdate();
-    }
     // update information for user
     public void updateInformation(String name, String email, String phone, String birthday) throws ClassNotFoundException, SQLException {
         connection = GetConnection.getConnection();

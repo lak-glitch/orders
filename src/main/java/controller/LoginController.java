@@ -19,18 +19,17 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
     public static String username;
+    public static boolean isLogin = false;
+    public static boolean isAdmin = false;
+    public static boolean isUser = false;
     @FXML
     TextField usernameTextField;
     @FXML
     PasswordField passwordField;
-    public static boolean isLogin = false;
-    public static boolean isAdmin = false;
-    public static boolean isUser = false;
-
     @FXML
     Button toSignupButton, loginButton;
     ChangeScene changeScene;
-//    SQL connection;
+    //    SQL connection;
     Connection connection = null;
     PreparedStatement psCheckUserExist = null;
     ResultSet rs = null;
@@ -47,7 +46,6 @@ public class LoginController implements Initializable {
         loginUser(usernameTextField.getText(), passwordField.getText());
         if (LoginController.isLogin) {
             username = usernameTextField.getText();
-
             changeScene.changeScene(event, "/gui/CenterController.fxml");
         }
     }

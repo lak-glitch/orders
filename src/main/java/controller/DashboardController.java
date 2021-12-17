@@ -1,15 +1,13 @@
 package controller;
 
 import alert.Notice;
+import all.AutoCompleteTextField;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXToggleButton;
 import dashboard.SetOrderInformation;
 import databaseconnection.GetConnection;
 import databaseconnection.GetQueryOrderInformation;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -20,11 +18,7 @@ import snackbar.SetSnackbar;
 import style.Style;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Locale;
+import java.sql.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -66,10 +60,11 @@ public class DashboardController implements Initializable {
     PreparedStatement statement = null;
     ResultSet rs = null;
     @FXML
-    JFXSnackbar snackbar;
+    JFXSnackbar dashboardSnackbar;
     SetSnackbar sn = new SetSnackbar();
     @FXML
     AnchorPane dashboardPane;
+    AutoCompleteTextField auto = new AutoCompleteTextField();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -94,7 +89,7 @@ public class DashboardController implements Initializable {
     //set default
     private void setDefault() {
         setOrderInformation.display(orderNumberColumn, nameColumn, phoneColumn, productNameColumn, quantityColumn, orderDateColumn, shippingDateColumn, totalColumn, statusColumn, orderInformationView, OrderList.ordersInformationList);
-        searchOrderInformation(OrderList.ordersInformationList);
+        auto.searchOrderInformation(searchTextField, OrderList.ordersInformationList, orderInformationView);
         allOrdersButton.getStyleClass().add("taskbar-style");
         inProgressButton.getStyleClass().remove("taskbar-style");
         shippedButton.getStyleClass().remove("taskbar-style");
@@ -109,8 +104,7 @@ public class DashboardController implements Initializable {
             style.setStyle(allOrdersButton, inProgressButton, shippedButton, canceledButton);
             searchTextField.setText(null);
             setOrderInformation.display(orderNumberColumn, nameColumn, phoneColumn, productNameColumn, quantityColumn, orderDateColumn, shippingDateColumn, totalColumn, statusColumn, orderInformationView, OrderList.ordersInformationList);
-            searchOrderInformation(OrderList.ordersInformationList);
-
+            auto.searchOrderInformation(searchTextField, OrderList.ordersInformationList, orderInformationView);
         });
     }
 
@@ -119,7 +113,7 @@ public class DashboardController implements Initializable {
         inProgressButton.setOnMouseClicked(mouseEvent -> {
             searchTextField.setText(null);
             setOrderInformation.display(orderNumberColumn, nameColumn, phoneColumn, productNameColumn, quantityColumn, orderDateColumn, shippingDateColumn, totalColumn, statusColumn, orderInformationView, OrderList.ordersInformationInProgressList);
-            searchOrderInformation(OrderList.ordersInformationInProgressList);
+            auto.searchOrderInformation(searchTextField, OrderList.ordersInformationInProgressList, orderInformationView);
             style.setStyle(inProgressButton, allOrdersButton, shippedButton, canceledButton);
         });
     }
@@ -130,7 +124,8 @@ public class DashboardController implements Initializable {
             searchTextField.setText(null);
             setOrderInformation.display(orderNumberColumn, nameColumn, phoneColumn, productNameColumn, quantityColumn, orderDateColumn, shippingDateColumn, totalColumn, statusColumn, orderInformationView, OrderList.ordersInformationShippedList);
             style.setStyle(shippedButton, allOrdersButton, inProgressButton, canceledButton);
-            searchOrderInformation(OrderList.ordersInformationShippedList);
+            auto.searchOrderInformation(searchTextField, OrderList.ordersInformationShippedList, orderInformationView);
+
 
         });
     }
@@ -141,31 +136,10 @@ public class DashboardController implements Initializable {
             searchTextField.setText(null);
             style.setStyle(canceledButton, allOrdersButton, shippedButton, inProgressButton);
             setOrderInformation.display(orderNumberColumn, nameColumn, phoneColumn, productNameColumn, quantityColumn, orderDateColumn, shippingDateColumn, totalColumn, statusColumn, orderInformationView, OrderList.ordersInformationCanceledList);
-            searchOrderInformation(OrderList.ordersInformationCanceledList);
-
+            auto.searchOrderInformation(searchTextField, OrderList.ordersInformationCanceledList, orderInformationView);
         });
     }
 
-    public void searchOrderInformation(ObservableList<OrdersInformation> ol) {
-        final FilteredList<OrdersInformation> filteredData = new FilteredList<>(ol, b -> true);
-        searchTextField.textProperty().addListener((observableValue, oldValue, newValue) -> filteredData.setPredicate(ordersInformation -> {
-            if (newValue == null || newValue.isEmpty()) {
-                return true;
-            }
-            String lowerCaseFiltered = newValue.toLowerCase(Locale.ROOT);
-
-            if (ordersInformation.getCustomer().getCustomerName().toLowerCase(Locale.ROOT).contains(lowerCaseFiltered)) {
-                return true;
-            } else if (ordersInformation.getOrderDate().toLowerCase(Locale.ROOT).contains(lowerCaseFiltered)) {
-                return true;
-            } else {
-                return false;
-            }
-        }));
-        SortedList<OrdersInformation> orderData = new SortedList<>(filteredData);
-        orderData.comparatorProperty().bind(orderInformationView.comparatorProperty());
-        orderInformationView.setItems(orderData);
-    }
 
     // display total orders in database
     public void setAllOrderText() {
@@ -182,15 +156,6 @@ public class DashboardController implements Initializable {
 
     public void setCanceledOrderText() {
         canceledOrders.setText(OrderList.ordersInformationCanceledList.size() + "\n" + "Canceled orders");
-    }
-
-    // set edit mode
-    public void setEditMode() {
-        CONFIRMATION.setContentText("Do you want to save changed?");
-        Optional<ButtonType> buttonType = CONFIRMATION.showAndWait();
-        if (buttonType.get() == ButtonType.OK) {
-            //            String orderNumber = nameColumn.getCellObservableValue
-        }
     }
 
     // refresh button
@@ -262,17 +227,17 @@ public class DashboardController implements Initializable {
         if (setEdit.get() == ButtonType.OK) {
             OrdersInformation od = orderInformationView.getSelectionModel().getSelectedItem();
             if (od == null) {
-                snackbar = sn.setSnackbarAnchorPane(dashboardPane, "/css/failed-snackbar.css", "Choose order to edit!");
+                dashboardSnackbar = sn.setSnackbarAnchorPane(dashboardPane, "/css/failed-snackbar.css", "Choose order to edit!");
                 return;
             }
             if (od.getStatus().equals("Canceled")) {
-                snackbar = sn.setSnackbarAnchorPane(dashboardPane, "/css/failed-snackbar.css", "This order is already canceled!");
+                dashboardSnackbar = sn.setSnackbarAnchorPane(dashboardPane, "/css/failed-snackbar.css", "This order is already canceled!");
             } else if (od.getStatus().equals("Shipped")) {
-                snackbar = sn.setSnackbarAnchorPane(dashboardPane, "/css/failed-snackbar.css", "This order is already shipped!");
+                dashboardSnackbar = sn.setSnackbarAnchorPane(dashboardPane, "/css/failed-snackbar.css", "This order is already shipped!");
             } else {
                 od.setStatus("Shipped");
                 changeToShippedStatus(od);
-                snackbar = sn.setSnackbarAnchorPane(dashboardPane, "/css/successful-snackbar.css", "Successfully!");
+                dashboardSnackbar = sn.setSnackbarAnchorPane(dashboardPane, "/css/successful-snackbar.css", "Successfully!");
                 refresh();
             }
         }
@@ -285,23 +250,25 @@ public class DashboardController implements Initializable {
         if (setEdit.get() == ButtonType.OK) {
             OrdersInformation od = orderInformationView.getSelectionModel().getSelectedItem();
             if (od == null) {
-                snackbar = sn.setSnackbarAnchorPane(dashboardPane, "/css/failed-snackbar.css", "Choose order to edit!");
+                dashboardSnackbar = sn.setSnackbarAnchorPane(dashboardPane, "/css/failed-snackbar.css", "Choose order to edit!");
                 return;
             }
             if (od.getStatus().equals("Shipped")) {
-                snackbar = sn.setSnackbarAnchorPane(dashboardPane, "/css/failed-snackbar.css", "Cannot cancel shipped order!");
+                dashboardSnackbar = sn.setSnackbarAnchorPane(dashboardPane, "/css/failed-snackbar.css", "Cannot cancel shipped order!");
             } else if (od.getStatus().equals("Canceled")) {
-                snackbar = sn.setSnackbarAnchorPane(dashboardPane, "/css/failed-snackbar.css", "This order is already canceled!");
-            } else {
+                dashboardSnackbar = sn.setSnackbarAnchorPane(dashboardPane, "/css/failed-snackbar.css", "This order is already canceled!");
+            } else if (od.getStatus().equals("In-progress")) {
+                System.out.println(od.getStatus());
                 od.setStatus("Canceled");
+                System.out.println(od.getStatus());
                 changeToCancelStatus(od);
-                snackbar = sn.setSnackbarAnchorPane(dashboardPane, "/css/successful-snackbar.css", "Successfully!");
+                dashboardSnackbar = sn.setSnackbarAnchorPane(dashboardPane, "/css/successful-snackbar.css", "Successfully!");
                 refresh();
             }
         }
     }
 
-    public void showAlert() throws SQLException, ClassNotFoundException {
+    public void showAlert() {
         CONFIRMATION = Notice.alertConfirmation("Edit", "/icons/edit_property_24px.png");
         CONFIRMATION.setContentText("Do you want to save change?");
     }
@@ -317,16 +284,14 @@ public class DashboardController implements Initializable {
     // choose selected order in database
     private void getSelectedOrder(OrdersInformation od) throws SQLException, ClassNotFoundException {
         con = GetConnection.getConnection();
-        String sql = "UPDATE ordersmanagement.orderdetails SET status = ? WHERE customerName = ? AND status = ? AND orderDate = ? AND orderShippingDate = ? AND orderNumber = ? AND productName = ?";
+        String sql = "UPDATE ordersmanagement.orderdetails SET status = ? WHERE customerName = ? AND orderDate = ? AND orderShippingDate = ? AND orderNumber = ? AND productName = ?";
         statement = con.prepareStatement(sql);
         statement.setString(1, od.getStatus());
-        statement.setString(2, od.getCustomer().getCustomerName());
-        statement.setString(3, "In-progress");
-        statement.setString(4, od.getOrderDate());
-        statement.setString(5, od.getOrderShippingDate());
-        statement.setString(6, od.getOrderNumber());
-        statement.setString(7, od.getProduct().getProductName());
+        statement.setString(2, od.getCustomer().getCustomerName().trim());
+        statement.setDate(3, Date.valueOf(od.getOrderDate()));
+        statement.setDate(4, Date.valueOf(od.getOrderShippingDate()));
+        statement.setString(5, od.getOrderNumber());
+        statement.setString(6, od.getProduct().getProductName());
         statement.executeUpdate();
     }
-
 }

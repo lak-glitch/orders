@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1129.0" style="-fx-background-color: #ddbea9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditFoodController">
+   <children>
+      <Label alignment="CENTER" layoutX="281.0" layoutY="44.0" prefHeight="114.0" prefWidth="567.0" text="Admin Mode">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="64.0" />
+         </font>
+      </Label>
+      <Pane layoutY="245.0" prefHeight="458.0" prefWidth="494.0" style="-fx-background-color: #fff;">
+         <children>
+            <TextField fx:id="productName" layoutX="154.0" layoutY="130.0" prefHeight="44.0" prefWidth="311.0" text="333" />
+            <TextField fx:id="priceEach" layoutX="154.0" layoutY="243.0" prefHeight="44.0" prefWidth="311.0" />
+            <JFXButton fx:id="addButton" layoutX="137.0" layoutY="383.0" onAction="#addProductToDatabase" prefHeight="44.0" prefWidth="221.0" style="-fx-background-color: #7f5539;" styleClass="add-button" text="Add" textFill="WHITE" />
+            <Label layoutX="23.0" layoutY="130.0" prefHeight="44.0" prefWidth="116.0" text="Product name">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="23.0" layoutY="243.0" prefHeight="44.0" prefWidth="46.0" text="Price">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutY="14.0" prefHeight="73.0" prefWidth="494.0" text="Add Food" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold Italic" size="36.0" />
+               </font>
+            </Label>
+            <Label fx:id="wrongFormat" layoutX="139.0" layoutY="316.0" prefHeight="44.0" prefWidth="246.0" text="Label" textFill="#d70707" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="545.0" layoutY="245.0" prefHeight="458.0" prefWidth="584.0" style="-fx-background-color: #fff;">
+         <children>
+            <TextField fx:id="editPriceLabel" layoutX="180.0" layoutY="247.0" prefHeight="44.0" prefWidth="311.0" />
+            <TextField fx:id="deleteProductLabel" layoutX="180.0" layoutY="134.0" prefHeight="44.0" prefWidth="311.0" />
+            <JFXButton fx:id="deleteButton" layoutX="176.0" layoutY="382.0" prefHeight="44.0" prefWidth="231.0" style="-fx-background-color: #7f5539;" styleClass="add-button" text="Delete" textFill="WHITE" />
+            <Label layoutX="42.0" layoutY="134.0" prefHeight="44.0" prefWidth="116.0" text="Product name">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="42.0" layoutY="247.0" prefHeight="44.0" prefWidth="141.0" text="Price to be fixed">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="73.0" prefWidth="583.0" text="Delete user or food" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold Italic" size="36.0" />
+               </font>
+            </Label>
+            <JFXRadioButton fx:id="deleteProduct" layoutX="116.0" layoutY="68.0" text="Delete Food">
+               <font>
+                  <Font size="18.0" />
+               </font></JFXRadioButton>
+            <JFXRadioButton fx:id="deleteUser" layoutX="359.0" layoutY="68.0" text="Edit price">
+               <font>
+                  <Font size="18.0" />
+               </font></JFXRadioButton>
+            <Label fx:id="wrongNumberFormat" layoutX="176.0" layoutY="312.0" prefHeight="44.0" prefWidth="246.0" text="Label" textFill="#d70707" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

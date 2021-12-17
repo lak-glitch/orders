@@ -34,7 +34,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="statisticsButton" buttonType="RAISED" layoutY="469.0" prefHeight="50.0" prefWidth="184.0" styleClass="menu-button" stylesheets="@../css/style.css" text="Statistics">
+            <JFXButton fx:id="statisticsButton" buttonType="RAISED" layoutY="470.0" prefHeight="50.0" prefWidth="184.0" styleClass="menu-button" stylesheets="@../css/style.css" text="Statistics">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -43,16 +43,16 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="userButton" buttonType="RAISED" layoutX="1.0" layoutY="598.0" prefHeight="50.0" prefWidth="184.0" styleClass="menu-button" stylesheets="@../css/style.css" text="Information">
+            <JFXButton fx:id="userButton" buttonType="RAISED" layoutX="1.0" layoutY="708.0" prefHeight="50.0" prefWidth="184.0" styleClass="menu-button" stylesheets="@../css/style.css" text="Setting">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/user_24px.png" />
+                        <Image url="@../icons/settings_24px.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Label fx:id="roleLabel" alignment="CENTER" layoutX="49.0" layoutY="648.0" prefHeight="28.0" prefWidth="86.0" text="Label" textFill="#0de77a">
+            <Label fx:id="roleLabel" alignment="CENTER" layoutX="49.0" layoutY="758.0" prefHeight="28.0" prefWidth="86.0" text="Label" textFill="#0de77a">
                <font>
                   <Font name="System Italic" size="14.0" />
                </font>
@@ -64,8 +64,24 @@
                   </ImageView>
                </graphic>
             </Label>
+            <JFXButton fx:id="addProductButton" buttonType="RAISED" layoutX="1.0" layoutY="554.0" prefHeight="50.0" prefWidth="184.0" styleClass="menu-button" stylesheets="@../css/style.css" text="Add product">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/joyent_24px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="mainAnchorPane" layoutX="185.0" prefHeight="800.0" prefWidth="1129.0" style="-fx-background-color: #fff0f3;" />
+      <AnchorPane fx:id="mainAnchorPane" layoutX="185.0" prefHeight="800.0" prefWidth="1129.0" style="-fx-background-color: #fff0f3;">
+         <children>
+            <ImageView fitHeight="800.0" fitWidth="1130.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../images/istockphoto-1223088904-612x612.jpg" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
    </children>
 </AnchorPane>
